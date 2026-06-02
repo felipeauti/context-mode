@@ -1256,6 +1256,57 @@ function extractFileReadMetadata(input: HookInput): SessionEvent[] {
   }];
 }
 
+/**
+ * AgentOutput.usage capture — fires on the Task sub-agent dispatcher.
+ * Captures the 7 cost/perf fields from sdk-tools.d.ts:64-75. The platform
+ * persists these as typed columns post-release; the bridge emits them as
+ * structured tokens in event.data for forward-compatible ingestion.
+ */
+function extractAgentUsage(input: HookInput): SessionEvent[] {
+  if (input.tool_name !== "Task") return [];
+  const resp = input.tool_response;
+  if (typeof resp !== "string" || resp.length === 0) return [];
+
+  let parsed: unknown;
+  try { parsed = JSON.parse(resp); } catch { return []; }
+  if (!parsed || typeof parsed !== "object") return [];
+
+  const out = parsed as Record<string, unknown>;
+  const usage = (out.usage && typeof out.usage === "object")
+    ? out.usage as Record<string, unknown>
+    : {};
+
+  const hasSignal =
+    typeof out.totalTokens === "number" ||
+    typeof out.totalDurationMs === "number" ||
+    typeof usage.input_tokens === "number" ||
+    typeof usage.output_tokens === "number" ||
+    typeof usage.service_tier === "string";
+  if (!hasSignal) return [];
+
+  const parts: string[] = [];
+  if (typeof out.totalTokens === "number") parts.push(`totalTokens:${out.totalTokens}`);
+  if (typeof out.totalDurationMs === "number") parts.push(`totalDurMs:${out.totalDurationMs}`);
+  if (typeof usage.input_tokens === "number") parts.push(`tokens_in:${usage.input_tokens}`);
+  if (typeof usage.output_tokens === "number") parts.push(`tokens_out:${usage.output_tokens}`);
+  if (typeof usage.cache_creation_input_tokens === "number") {
+    parts.push(`cache_create:${usage.cache_creation_input_tokens}`);
+  }
+  if (typeof usage.cache_read_input_tokens === "number") {
+    parts.push(`cache_read:${usage.cache_read_input_tokens}`);
+  }
+  if (typeof usage.service_tier === "string") {
+    parts.push(`tier:${usage.service_tier.slice(0, 32)}`);
+  }
+
+  return [{
+    type: "agent_usage",
+    category: "cost",
+    data: safeString(parts.join(" ")),
+    priority: 2,
+  }];
+}
+
 // ── User-message extractors ────────────────────────────────────────────────
 
 /**
@@ -1720,6 +1771,7 @@ export function extractEvents(rawInput: HookInput): SessionEvent[] {
     events.push(...extractWebFetchMetadata(input));
     events.push(...extractBashOutcome(input));
     events.push(...extractFileReadMetadata(input));
+    events.push(...extractAgentUsage(input));
     events.push(...extractAgentFinding(input));
     events.push(...extractExternalRef(input));
 
