@@ -394,7 +394,7 @@ footer{padding:64px 0 40px;text-align:center;background:var(--bg-alt);border-top
   <div class="hero-inner wrap rev">
     <p class="hero-product-tag">the first Solution from <a href="/">Context Mode Platform</a> · for enterprise AI engineering</p>
     <h1 class="h1">Insights — measure the engineering signal your AI tools are actually shipping.</h1>
-    <p class="hero-sub">Role-aware observability for Claude Code, Cursor, Copilot, Codex, Gemini, and 10 more AI assistants. 222 patterns. 13 MCP tools. Privacy-first. Sits on top of the open-source plugin <strong>250,000+ developers already trust</strong>.</p>
+    <p class="hero-sub">Role-aware observability for Claude Code, Cursor, Copilot, Codex, Gemini, and 9 more AI assistants. 222 patterns. 13 MCP tools. Privacy-first. Sits on top of the open-source plugin <strong>250,000+ developers already trust</strong>.</p>
     <p class="hero-price-anchor">OSS collects. Platform understands. <strong>$20 / seat / month.</strong></p>
 
     <div class="hero-cta">
@@ -411,7 +411,7 @@ footer{padding:64px 0 40px;text-align:center;background:var(--bg-alt);border-top
       <div class="hero-stat"><div class="val" id="stat-devs">250K+</div><div class="lbl">devs on OSS</div></div>
       <div class="hero-stat"><div class="val">222</div><div class="lbl">patterns</div></div>
       <div class="hero-stat"><div class="val">13</div><div class="lbl">MCP tools</div></div>
-      <div class="hero-stat"><div class="val">10</div><div class="lbl">AI adapters</div></div>
+      <div class="hero-stat"><div class="val">14</div><div class="lbl">AI adapters</div></div>
       <div class="hero-stat"><div class="val">7</div><div class="lbl">personas</div></div>
     </div>
   </div>
@@ -1010,14 +1010,14 @@ commit_strong_cadence, commit_fix_heavy</span></pre>
       <p class="section-num">§ 08 · adapters</p>
       <h2 class="h2">Adapters &middot; supported AI assistants.</h2>
       <div class="rule"></div>
-      <p class="lead">Context Mode integrates with <strong>10</strong> AI assistants via <strong>two</strong> distinct hook paradigms. Insights ingests structured events from each — same envelope shape, same pattern engine.</p>
+      <p class="lead">Context Mode integrates with <strong>14</strong> AI assistants via <strong>three</strong> distinct hook paradigms. Insights ingests structured events from each — same envelope shape, same pattern engine.</p>
     </div>
 
     <!-- Group 1: Hook-rich json-stdio -->
     <div class="adapter-group rev">
       <div class="adapter-group-head">
         <div class="adapter-group-title">Hook-rich &middot; json-stdio</div>
-        <div class="adapter-group-meta">9 adapters &middot; full event surface</div>
+        <div class="adapter-group-meta">8 adapters &middot; full event surface</div>
       </div>
       <p class="adapter-group-lead">Host fires hook commands per tool boundary, prompt boundary, session boundary, and pre-compact. Each hook receives a JSON envelope on stdin; the plugin emits a structured event back via stdout. Maximum signal density &mdash; every extractor in <code>src/session/extract.ts</code> can fire.</p>
       <div class="adapter-grid">
@@ -1042,19 +1042,9 @@ commit_strong_cadence, commit_fix_heavy</span></pre>
           <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span><span class="adapter-event">PreCompact</span></div>
         </div>
         <div class="adapter-card">
-          <div class="adapter-card-head"><div class="adapter-name">VS Code Copilot</div><div class="adapter-paradigm json">json-stdio</div></div>
-          <div class="adapter-fires">Agent-mode hooks via the Copilot extension surface. <code>copilot-instructions.md</code> routing file; standard envelope.</div>
-          <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span></div>
-        </div>
-        <div class="adapter-card">
           <div class="adapter-card-head"><div class="adapter-name">JetBrains Copilot</div><div class="adapter-paradigm json">json-stdio</div></div>
           <div class="adapter-fires">IntelliJ / WebStorm / PyCharm Copilot agent. Hook envelope identical to VS Code Copilot; shared <code>copilot-base.ts</code>.</div>
           <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span></div>
-        </div>
-        <div class="adapter-card">
-          <div class="adapter-card-head"><div class="adapter-name">Kimi</div><div class="adapter-paradigm json">json-stdio</div></div>
-          <div class="adapter-fires">Moonshot's coding agent &mdash; Claude Code hook envelope. <code>KIMI.md</code> routing file; full extractor coverage.</div>
-          <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span><span class="adapter-event">PreCompact</span></div>
         </div>
         <div class="adapter-card">
           <div class="adapter-card-head"><div class="adapter-name">Kiro</div><div class="adapter-paradigm json">json-stdio</div></div>
@@ -1066,6 +1056,11 @@ commit_strong_cadence, commit_fix_heavy</span></pre>
           <div class="adapter-fires">Alibaba Qwen coding agent &mdash; Claude Code hook envelope. <code>QWEN.md</code> routing file; cross-language prompt features via Unicode regex.</div>
           <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span></div>
         </div>
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">VS Code Copilot</div><div class="adapter-paradigm json">json-stdio</div></div>
+          <div class="adapter-fires">Agent-mode hooks via the Copilot extension surface. <code>copilot-instructions.md</code> routing file; standard envelope.</div>
+          <div class="adapter-events"><span class="adapter-event">PreToolUse</span><span class="adapter-event">PostToolUse</span><span class="adapter-event">UserPromptSubmit</span><span class="adapter-event">SessionStart</span></div>
+        </div>
       </div>
       <p class="muted" style="margin-top:14px;font-size:13px">Data captured: tool calls, file paths, prompt features (10 Unicode properties + L3 word tokens), commit message subjects, agent usage tokens with derived <code>cost_usd</code>, ExitPlanMode plan size + hash, ExitWorktree discard flag, SessionStart model + MCP-server snapshot.</p>
     </div>
@@ -1074,10 +1069,20 @@ commit_strong_cadence, commit_fix_heavy</span></pre>
     <div class="adapter-group rev">
       <div class="adapter-group-head">
         <div class="adapter-group-title">Plugin-based &middot; ts-plugin</div>
-        <div class="adapter-group-meta">1 adapter &middot; in-process hooks</div>
+        <div class="adapter-group-meta">3 adapters &middot; in-process hooks</div>
       </div>
       <p class="adapter-group-lead">TypeScript plugin loaded directly by the host process. No subprocess boundary &mdash; hooks fire as in-process callbacks. Routing + extraction shares the same <code>extractEvents</code> path as json-stdio, surrogating missing host primitives.</p>
       <div class="adapter-grid">
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">Kilo</div><div class="adapter-paradigm ts">ts-plugin</div></div>
+          <div class="adapter-fires">Kilo Code &mdash; Cline-family agent. Plugin loaded via <code>kilo.json</code> <code>plugin</code> entry. Shares the <code>extractEvents</code> path; <code>AGENTS.md</code> routing.</div>
+          <div class="adapter-events"><span class="adapter-event">tool_call:before</span><span class="adapter-event">tool_call:after</span><span class="adapter-event">command:new</span></div>
+        </div>
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">OpenClaw</div><div class="adapter-paradigm ts">ts-plugin</div></div>
+          <div class="adapter-fires">OpenClaw plugin via <code>api.registerHook()</code> + <code>api.on()</code>. <code>tool_call:before</code> can mutate <code>event.params</code> or block; <code>before_prompt_build</code> injects routing instructions.</div>
+          <div class="adapter-events"><span class="adapter-event">tool_call:before</span><span class="adapter-event">tool_call:after</span><span class="adapter-event">command:new</span><span class="adapter-event">before_prompt_build</span></div>
+        </div>
         <div class="adapter-card">
           <div class="adapter-card-head"><div class="adapter-name">OpenCode</div><div class="adapter-paradigm ts">ts-plugin</div></div>
           <div class="adapter-fires"><code>tool.execute.before</code> / <code>tool.execute.after</code> for tool boundaries. No SessionStart primitive &mdash; <code>chat.system.transform</code> surrogates context injection; <code>chat.message</code> surrogates UserPromptSubmit.</div>
@@ -1087,8 +1092,35 @@ commit_strong_cadence, commit_fix_heavy</span></pre>
       <p class="muted" style="margin-top:14px;font-size:13px">Data captured: same envelope as json-stdio. OpenCode's missing SessionStart is recovered via plugin-init scan + <code>chat.system.transform</code> injection; OC-2 inline filter on <code>chat.message</code> preserves the CCv2 user-prompt envelope.</p>
     </div>
 
+    <!-- Group 3: MCP-only hosts -->
+    <div class="adapter-group rev">
+      <div class="adapter-group-head">
+        <div class="adapter-group-title">MCP-only hosts</div>
+        <div class="adapter-group-meta">3 adapters &middot; tool-side signal</div>
+      </div>
+      <p class="adapter-group-lead">Host exposes no hook pipeline. Signal arrives via the remote MCP server &mdash; <code>ctx_*</code> tool invocations from within the host become the event stream. All capabilities report false in the JSON-stdio matrix; routing instructions injected via per-host instruction file.</p>
+      <div class="adapter-grid">
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">Antigravity</div><div class="adapter-paradigm mcp">mcp-only</div></div>
+          <div class="adapter-fires">Google Antigravity &mdash; no hooks; MCP via <code>~/.gemini/antigravity/mcp_config.json</code> <code>mcpServers</code>. <code>GEMINI.md</code> routing file (separate content from Gemini CLI).</div>
+          <div class="adapter-events"><span class="adapter-event">mcp.tool_call</span></div>
+        </div>
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">Pi</div><div class="adapter-paradigm mcp">mcp-only</div></div>
+          <div class="adapter-fires">Pi coding agent &mdash; JS-callback runtime API wired through <code>src/adapters/pi/extension.ts</code>; HookAdapter reports mcp-only. Isolated session dir at <code>~/.pi/context-mode/sessions/</code>. <code>AGENTS.md</code> routing.</div>
+          <div class="adapter-events"><span class="adapter-event">mcp.tool_call</span></div>
+        </div>
+        <div class="adapter-card">
+          <div class="adapter-card-head"><div class="adapter-name">Zed</div><div class="adapter-paradigm mcp">mcp-only</div></div>
+          <div class="adapter-fires">Zed editor &mdash; no CLI hook pipeline. MCP via <code>~/.config/zed/settings.json</code> <code>context_servers</code> section. All hook capabilities false; full MCP integration.</div>
+          <div class="adapter-events"><span class="adapter-event">mcp.tool_call</span></div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:14px;font-size:13px">Data captured: <code>ctx_*</code> tool invocations only &mdash; arguments, source label, timing. No tool-boundary capture from the host. Signal density lower than json-stdio or ts-plugin, but the pattern engine still runs over what the MCP server sees.</p>
+    </div>
+
     <div class="gtm-strip rev">
-      <a href="#waitlist" class="cta pri">Join the waitlist</a>
+      <a href="https://platform.context-mode.com/signup" class="cta pri">Start for $20 / seat →</a>
     </div>
   </div>
 </section>
